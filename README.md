@@ -10,7 +10,7 @@ objects.
 **Your task is to handle the checked exceptions that I haven’t handled inside the CSVReader_Writer
 utility class.**
 
-- [ ] At least one method should be handled with a try-catch-finally.
+- [x] At least one method should be handled with a try-catch-finally.
 - [ ] At least one method should be handled with a try with resources with a catch.
 - [ ] One method declare a “throws” that needs to be handled at the method invocation.
 - [ ] You should create one custom exception that will get thrown from the add methods in
