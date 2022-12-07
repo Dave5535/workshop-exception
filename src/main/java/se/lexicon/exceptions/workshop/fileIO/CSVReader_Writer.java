@@ -1,5 +1,7 @@
 package se.lexicon.exceptions.workshop.fileIO;
 
+import Customexception.Exceptions;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -50,13 +52,13 @@ public class CSVReader_Writer {
     public static List<String> getFemaleFirstNames() {
 
         List<String> names = null;
-try(BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.txt"))
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.txt"))
 
-){
+        ) {
             names = reader.lines().flatMap(line -> Stream.of(line.split(","))).collect(Collectors.toList());
         } catch (IOException e) {
-    System.out.println(e);
-}
+            System.out.println(e);
+        }
 
 
         return names;
@@ -86,37 +88,72 @@ try(BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.
         } finally {
             if (reader != null) {
                 reader.close();
+            } else {
+                System.out.println("lastname was not found");
+
             }
         }
         return names;
     }
 
 
-    public static void saveLastNames(List<String> lastNames) {
+    public static void saveLastNames(List<String> lastNames) throws Exceptions {
+// If you add new names you must also be able to save the lists to file.
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("lastnames.txt"))) {
 
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get("lastnames.txt"));
-        for (String toWrite : lastNames) {
-            writer.append(toWrite + ",");
+            for (String toWrite : lastNames) {
+                writer.append(toWrite + ",");
+            }
+            writer.flush();
+        } catch (IOException e) {
+            System.out.println(e);
+        }finally {
+            for (String toWrite : lastNames){
+                if (lastNames.contains(toWrite)) throw new  Exceptions("Duplicates not allowed",1);
+            }
+
         }
-        writer.flush();
+
+
     }
 
-    public static void saveFemaleNames(List<String> femaleNames) {
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get("firstname_female.txt"));
-        for (String toWrite : femaleNames) {
-            writer.append(toWrite + ",");
-        }
-        writer.flush();
+    public static void saveFemaleNames(List<String> femaleNames) throws Exceptions {
 
+        BufferedWriter writer = null;
+        try {
+
+            writer = Files.newBufferedWriter(Paths.get("firstname_female.txt"));
+            for (String toWrite : femaleNames) {
+                writer.append(toWrite + ",");
+            }
+            writer.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }finally {
+            for (String toWrite : femaleNames){
+                if (femaleNames.contains(toWrite)) throw new  Exceptions("Duplicates not allowed",1);
+            }
+
+        }
     }
 
 
-    public static void saveMaleNames(List<String> maleNames) {
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get("firstname_males.txt"));
-        for (String toWrite : maleNames) {
-            writer.append(toWrite + ",");
+    public static void saveMaleNames(List<String> maleNames)throws Exceptions {
+        BufferedWriter writer = null;
+        try{
+            writer = Files.newBufferedWriter(Paths.get("firstname_males.txt"));
+            for (String toWrite : maleNames) {
+                writer.append(toWrite + ",");
+            }
+            writer.flush();
+        }catch (IOException e){
+            System.out.println(e);
+        }finally {
+            for (String toWrite : maleNames){
+                if (maleNames.contains(toWrite)) throw new  Exceptions("Duplicates not allowed",1);
+            }
+
         }
-        writer.flush();
 
 
     }

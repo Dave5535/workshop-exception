@@ -3,6 +3,7 @@ package se.lexicon.exceptions.workshop.data_access;
 import java.util.List;
 import java.util.Random;
 
+import Customexception.Exceptions;
 import se.lexicon.exceptions.workshop.domain.Gender;
 import se.lexicon.exceptions.workshop.domain.Person;
 import se.lexicon.exceptions.workshop.fileIO.CSVReader_Writer;
@@ -63,9 +64,13 @@ public class NameService {
 	     */
 	    public void addFemaleFirstName(String name){
 	    	femaleFirstNames.add(name);
-	    	CSVReader_Writer.saveFemaleNames(femaleFirstNames);
-	    		
-	    }
+			try {
+				CSVReader_Writer.saveFemaleNames(femaleFirstNames);
+			} catch (Exceptions e) {
+				System.out.println(e);
+			}
+
+		}
 
 	    /**
 	     * Here you need to check if List<String> maleFirstNames already contains the name
@@ -75,8 +80,12 @@ public class NameService {
 	     */
 	    public void addMaleFirstName(String name){
 	    	maleFirstNames.add(name);
-	        CSVReader_Writer.saveMaleNames(maleFirstNames);
-	    }
+			try {
+				CSVReader_Writer.saveMaleNames(maleFirstNames);
+			} catch (Exceptions e) {
+				System.out.println(e);
+			}
+		}
 
 	    /**
 	     * Here you need to check if List<String> lastNames already contains the name
@@ -86,8 +95,12 @@ public class NameService {
 	     */
 	    public void addLastName(String lastName){
 	    	lastNames.add(lastName);
-	        CSVReader_Writer.saveLastNames(lastNames);
-	    }
+			try {
+				CSVReader_Writer.saveLastNames(lastNames);
+			} catch (Exceptions e) {
+				System.out.println(e);
+			}
+		}
 
 
 	

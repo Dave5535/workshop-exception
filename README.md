@@ -13,7 +13,7 @@ utility class.**
 - [x] At least one method should be handled with a try-catch-finally.
 - [x] At least one method should be handled with a try with resources with a catch.
 - [x] One method declare a “throws” that needs to be handled at the method invocation.
-- [ ] You should create one custom exception that will get thrown from the add methods in
+- [x] You should create one custom exception that will get thrown from the add methods in
 NameService class and handled with a friendly error message whenever you try to add a
 name that already exists.
 - [ ] You must successfully be able to create object of type Person using the method
