@@ -29,17 +29,17 @@ public class Main {
         System.out.println(test);
         System.out.println("______");
         try {
-            nameService.addLastName("test");
+            nameService.addLastName("test");  // result added and saved in File
         } catch (Exceptions e) {
             System.out.println(e.getMessage());
         }
         try {
-            nameService.addFemaleFirstName("Alice");
+            nameService.addFemaleFirstName("Alice"); // exist in system (will call a custom exception)
         } catch (Exceptions e) {
             System.out.println(e.getMessage());
         }
         try {
-            nameService.addMaleFirstName("William");
+            nameService.addMaleFirstName("William"); // exist in system (will call a custom exception)
         } catch (Exceptions e) {
             System.out.println(e.getMessage());
         }
