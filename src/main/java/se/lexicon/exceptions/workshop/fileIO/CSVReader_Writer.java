@@ -1,13 +1,14 @@
 package se.lexicon.exceptions.workshop.fileIO;
 
 import Customexception.Exceptions;
+import se.lexicon.exceptions.workshop.data_access.NameService;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -98,65 +99,73 @@ public class CSVReader_Writer {
 
 
     public static void saveLastNames(List<String> lastNames) throws Exceptions {
-// If you add new names you must also be able to save the lists to file.
-        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("lastnames.txt"))) {
 
+        try {
+            List<String> strings = Files.readAllLines(Paths.get("lastnames.txt"));
+            {
+                for (int i = 0; i < lastNames.size(); i++)
+                    if (strings.contains(lastNames.get(i)))
+                        lastNames.remove(lastNames.get(i));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get("lastnames.txt"));
             for (String toWrite : lastNames) {
                 writer.append(toWrite + ",");
             }
             writer.flush();
         } catch (IOException e) {
-            System.out.println(e);
-        }finally {
-            for (String toWrite : lastNames){
-                if (lastNames.contains(toWrite)) throw new  Exceptions("Duplicates not allowed",1);
-            }
-
+            throw new RuntimeException(e);
         }
-
-
     }
 
     public static void saveFemaleNames(List<String> femaleNames) throws Exceptions {
 
-        BufferedWriter writer = null;
         try {
-
-            writer = Files.newBufferedWriter(Paths.get("firstname_female.txt"));
+            List<String> strings = Files.readAllLines(Paths.get("firstname_female.txt"));
+            {
+                for (int i = 0; i < femaleNames.size(); i++)
+                    if (strings.contains(femaleNames.get(i)))
+                        femaleNames.remove(femaleNames.get(i));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get("firstname_female.txt"));
             for (String toWrite : femaleNames) {
                 writer.append(toWrite + ",");
             }
             writer.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }finally {
-            for (String toWrite : femaleNames){
-                if (femaleNames.contains(toWrite)) throw new  Exceptions("Duplicates not allowed",1);
-            }
-
         }
     }
 
 
-    public static void saveMaleNames(List<String> maleNames)throws Exceptions {
-        BufferedWriter writer = null;
-        try{
-            writer = Files.newBufferedWriter(Paths.get("firstname_males.txt"));
+    public static void saveMaleNames(List<String> maleNames) throws Exceptions {
+
+        try {
+            List<String> strings = Files.readAllLines(Paths.get("firstname_males.txt"));
+            {
+                for (int i = 0; i < maleNames.size(); i++)
+                    if (strings.contains(maleNames.get(i)))
+                        maleNames.remove(maleNames.get(i));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get("firstname_males.txt"));
             for (String toWrite : maleNames) {
                 writer.append(toWrite + ",");
             }
             writer.flush();
-        }catch (IOException e){
-            System.out.println(e);
-        }finally {
-            for (String toWrite : maleNames){
-                if (maleNames.contains(toWrite)) throw new  Exceptions("Duplicates not allowed",1);
-            }
-
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-
     }
-
 
 }

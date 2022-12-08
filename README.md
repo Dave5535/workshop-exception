@@ -16,9 +16,9 @@ utility class.**
 - [x] You should create one custom exception that will get thrown from the add methods in
 NameService class and handled with a friendly error message whenever you try to add a
 name that already exists.
-- [ ] You must successfully be able to create object of type Person using the method
+- [x] You must successfully be able to create object of type Person using the method
 getNewRandomPerson.
-- [ ] If you add new names you must also be able to save the lists to file.
+- [x] If you add new names you must also be able to save the lists to file.
 
 
 
